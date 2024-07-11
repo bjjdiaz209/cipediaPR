@@ -1,4 +1,4 @@
-//import 'package:cinepediab/config/constants/environment.dart';
+import 'package:cinepediab/config/constants/environment.dart';
 import 'package:cinepediab/presentation/providers/movies/movies_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,6 +28,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
   }
 
+  //rederizado del la lista
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
