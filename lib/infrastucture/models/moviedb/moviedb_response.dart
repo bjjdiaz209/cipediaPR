@@ -16,7 +16,7 @@ class MovieDbReponse {
   });
 
   factory MovieDbReponse.fromJson(Map<String, dynamic> json) => MovieDbReponse(
-        dates: json["dates"] ? Dates.fromJson(json["dates"]) : null,
+        dates: json["dates"] != null ? Dates.fromJson(json["dates"]) : null,
         page: json["page"],
         results: List<MovieMovieDB>.from(
             json["results"].map((x) => MovieMovieDB.fromJson(x))),
