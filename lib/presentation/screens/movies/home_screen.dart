@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cinepediab/presentation/providers/providers.dart';
 import 'package:cinepediab/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
