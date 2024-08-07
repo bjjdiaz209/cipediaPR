@@ -16,8 +16,9 @@ class MovieMapper {
       popularity: moviedb.popularity,
       posterPath: (moviedb.posterPath != '')
           ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
-          : 'no-poster',
-      releaseDate: moviedb.releaseDate,
+          : 'https://img.freepik.com/free-vector/404-error-design-with-laptop_23-2147731478.jpg?size=626&ext=jpg',
+      releaseDate:
+          moviedb.releaseDate != null ? moviedb.releaseDate! : DateTime.now(),
       title: moviedb.title,
       video: moviedb.video,
       voteAverage: moviedb.voteAverage,
@@ -36,7 +37,7 @@ class MovieMapper {
       popularity: moviedb.popularity,
       posterPath: (moviedb.posterPath != '')
           ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
-          : 'no-poster',
+          : 'https://img.freepik.com/free-vector/404-error-design-with-laptop_23-2147731478.jpg?size=626&ext=jpg',
       releaseDate: moviedb.releaseDate,
       title: moviedb.title,
       video: moviedb.video,
