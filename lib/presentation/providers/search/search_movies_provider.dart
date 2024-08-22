@@ -1,6 +1,5 @@
 import 'package:cinepediab/domain/entities/movie.dart';
 import 'package:cinepediab/presentation/providers/movies/movie_repository_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final searchQueryProvider = StateProvider<String>((ref) => '');

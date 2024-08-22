@@ -5,7 +5,7 @@ import 'package:cinepediab/domain/repositories/local_storage_repository.dart';
 class LocalStorageRepositoryImpl extends LocalStorageRepository {
   final LocalStorageDatasorce datasource;
 
-  LocalStorageRepositoryImpl({required this.datasource});
+  LocalStorageRepositoryImpl(this.datasource);
 
   @override
   Future<bool> isMovieFavorite(int movieId) {
