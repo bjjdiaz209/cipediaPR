@@ -9,3 +9,4 @@ export 'search/search_movies_provider.dart';
 export 'movies/movie_info_provider.dart';
 
 export 'storage/local_storage_provider.dart';
+export 'storage/favorites_movies_provider.dart';
