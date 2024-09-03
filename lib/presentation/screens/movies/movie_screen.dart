@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cinepediab/domain/entities/movie.dart';
 import 'package:cinepediab/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinepediab/presentation/providers/providers.dart';
+import 'package:cinepediab/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,7 +63,7 @@ class _MovieDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -104,72 +105,8 @@ class _MovieDetails extends StatelessWidget {
           ]),
         ),
 
-        _ActorsByMovie(movieId: movie.id.toString()),
-
-        const SizedBox(height: 50)
+        ActorsByMovie(movieId: movie.id.toString()),
       ],
-    );
-  }
-}
-
-class _ActorsByMovie extends ConsumerWidget {
-  final String movieId;
-
-  const _ActorsByMovie({required this.movieId});
-
-  @override
-  Widget build(BuildContext context, ref) {
-    final actorsByMovie = ref.watch(actorsByMovieProvider);
-
-    if (actorsByMovie[movieId] == null) {
-      return const CircularProgressIndicator(strokeWidth: 2);
-    }
-    final actors = actorsByMovie[movieId]!;
-
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: actors.length,
-          itemBuilder: (context, index) {
-            final actor = actors[index];
-
-            return Container(
-              padding: const EdgeInsets.all(8.0),
-              width: 135,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //Actor photo
-                  FadeInRight(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        actor.profilePath,
-                        height: 180,
-                        width: 135,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-
-                  //nombre
-                  const SizedBox(
-                    height: 5,
-                  ),
-
-                  Text(actor.name, maxLines: 2),
-                  Text(
-                    actor.character ?? '',
-                    maxLines: 2,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis),
-                  )
-                ],
-              ),
-            );
-          }),
     );
   }
 }
@@ -189,6 +126,9 @@ class _CustomSliverAppBar extends ConsumerWidget {
     final isFavoriteFuture = ref.watch(isFavoriteProvider(movie.id));
 
     final size = MediaQuery.of(context).size;
+
+    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
     return SliverAppBar(
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
@@ -246,6 +186,17 @@ class _CustomSliverAppBar extends ConsumerWidget {
                 begin: Alignment.topLeft,
                 stops: [0.0, 0.3],
                 colors: [Colors.black87, Colors.transparent]),
+            _CustomGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [
+                  0.7,
+                  1.0
+                ],
+                colors: [
+                  Colors.transparent,
+                  scaffoldBackgroundColor,
+                ])
           ],
         ),
       ),
