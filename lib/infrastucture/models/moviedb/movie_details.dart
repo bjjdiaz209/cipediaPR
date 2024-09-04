@@ -7,7 +7,7 @@ class MovieDetails {
   final String homepage;
   final int id;
   final String imdbId;
-  final List<String> originCountry;
+  //final List<String> originCountry;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
@@ -35,7 +35,7 @@ class MovieDetails {
     required this.homepage,
     required this.id,
     required this.imdbId,
-    required this.originCountry,
+    // required this.originCountry,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
@@ -66,7 +66,7 @@ class MovieDetails {
         homepage: json["homepage"],
         id: json["id"],
         imdbId: json["imdb_id"],
-        originCountry: List<String>.from(json["origin_country"].map((x) => x)),
+        //originCountry: List<String>.from(json["origin_country"].map((x) => x)),
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
@@ -100,7 +100,7 @@ class MovieDetails {
         "homepage": homepage,
         "id": id,
         "imdb_id": imdbId,
-        "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
+        //"origin_country": List<dynamic>.from(originCountry.map((x) => x)),
         "original_language": originalLanguage,
         "original_title": originalTitle,
         "overview": overview,
@@ -178,7 +178,7 @@ class ProductionCompany {
   final int id;
   final String? logoPath;
   final String name;
-  final String originCountry;
+  final String? originCountry;
 
   ProductionCompany({
     required this.id,
