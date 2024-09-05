@@ -2,6 +2,7 @@ import 'package:cinepediab/domain/entities/video.dart';
 import 'package:cinepediab/presentation/providers/movies/movie_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 final FutureProviderFamily<List<Video>, int> videosFromMovieProvider =
     FutureProvider.family((ref, int movieId) {
@@ -19,20 +20,98 @@ class VideosFromMovie extends ConsumerWidget {
     final moviesFromVideo = ref.watch(videosFromMovieProvider(movieId));
 
     return moviesFromVideo.when(
-      data: (videos) => Container(
-          color: Colors.red,
-          margin: const EdgeInsetsDirectional.only(bottom: 50),
-          child: SizedBox(
-            height: 350,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: videos.map((e) => Text(e.name)).toList(),
-            ),
-          )),
+      data: (videos) => _VideoList(videos: videos),
       error: (_, __) =>
           const Center(child: Text('No se pudo cargar películas similares')),
       loading: () =>
           const Center(child: CircularProgressIndicator(strokeWidth: 2)),
     );
+  }
+}
+
+class _VideoList extends StatelessWidget {
+  final List<Video> videos;
+
+  const _VideoList({super.key, required this.videos});
+
+  @override
+  Widget build(BuildContext context) {
+    //* nada que mostrar
+    if (videos.isEmpty) {
+      return const SizedBox();
+    }
+
+    return Container(
+      margin: const EdgeInsetsDirectional.only(bottom: 50),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: const Text(
+              'Videos',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          //* aunque tengo varios videos , solo quiero mostrar el primero
+          _YouTubeVideoPlayer(
+              youtubeId: videos.first.youtubeKey, name: videos.first.name)
+
+          //* si se desea mostrar todos los videos
+          //*...videos
+          //* .map((video) => _YouTubeVideoPlayer(
+          //*  youtubeId: videos.first.youtubeKey, name: video.name))
+          //*.toList()
+        ],
+      ),
+    );
+  }
+}
+
+class _YouTubeVideoPlayer extends StatefulWidget {
+  final String youtubeId;
+  final String name;
+
+  const _YouTubeVideoPlayer({required this.youtubeId, required this.name});
+
+  @override
+  State<_YouTubeVideoPlayer> createState() => _YouTubeVideoPlayerState();
+}
+
+class _YouTubeVideoPlayerState extends State<_YouTubeVideoPlayer> {
+  late YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = YoutubePlayerController(
+        initialVideoId: widget.youtubeId,
+        flags: const YoutubePlayerFlags(
+          showLiveFullscreenButton: false,
+          mute: false,
+          autoPlay: false,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: false,
+        ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Text(widget.name), YoutubePlayer(controller: _controller)],
+        ));
   }
 }

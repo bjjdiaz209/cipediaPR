@@ -61,12 +61,13 @@ class HomeViewState extends ConsumerState<HomeView> {
                   subTittle: 'este mes',
                   loadNextPage: () =>
                       ref.read(upcomingMoviesProvider.notifier).loadNextPage()),
-              MovieHorizontalListview(
-                  movies: popularMovies,
-                  title: 'Populares',
-                  //subTittle: '',
-                  loadNextPage: () =>
-                      ref.read(popularMoviesProvider.notifier).loadNextPage()),
+              //*ya no estara aqui por ya pertenece al menu inferior
+              //MovieHorizontalListview(
+              //  movies: popularMovies,
+              //title: 'Populares',
+              //subTittle: '',
+              //loadNextPage: () =>
+              //  ref.read(popularMoviesProvider.notifier).loadNextPage()),
               MovieHorizontalListview(
                   movies: topRatedMovies,
                   title: 'Mejor Calificados',
