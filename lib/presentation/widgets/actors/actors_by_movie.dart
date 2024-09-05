@@ -6,15 +6,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ActorsByMovie extends ConsumerWidget {
   final String movieId;
 
-  const ActorsByMovie({required this.movieId});
+  const ActorsByMovie({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context, ref) {
     final actorsByMovie = ref.watch(actorsByMovieProvider);
-
+    //*loading actors
     if (actorsByMovie[movieId] == null) {
-      return const CircularProgressIndicator(strokeWidth: 2);
+      return Container(
+        height: 100,
+        margin: const EdgeInsets.only(bottom: 50),
+        child: const Center(
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      );
     }
+
     final actors = actorsByMovie[movieId]!;
 
     return SizedBox(

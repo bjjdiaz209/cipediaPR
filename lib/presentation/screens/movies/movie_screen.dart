@@ -3,6 +3,7 @@ import 'package:cinepediab/config/helpers/human_formats.dart';
 import 'package:cinepediab/domain/entities/movie.dart';
 import 'package:cinepediab/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinepediab/presentation/providers/providers.dart';
+import 'package:cinepediab/presentation/widgets/movies/similar_movies.dart';
 import 'package:cinepediab/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -68,8 +69,13 @@ class _MovieDetails extends StatelessWidget {
 
         //* generos de peliculas
         _Genres(movie: movie),
-
+        //*actores de pelicuals
         ActorsByMovie(movieId: movie.id.toString()),
+        //* videos de la pelicula
+
+        VideosFromMovie(movieId: movie.id),
+        //*similar movies
+        SimilarMovies(movieId: movie.id)
       ],
     );
   }
@@ -84,17 +90,22 @@ class _Genres extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Wrap(
-        children: [
-          ...movie.genreIds.map((gender) => Container(
-                margin: const EdgeInsets.only(right: 10),
-                child: Chip(
-                  label: Text(gender),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ))
-        ],
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            ...movie.genreIds.map((gender) => Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: Chip(
+                    label: Text(gender),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                ))
+          ],
+        ),
       ),
     );
   }
