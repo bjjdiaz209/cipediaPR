@@ -39,12 +39,14 @@ class _HomeScreenState extends State<HomeScreen>
       pageController.animateToPage(
         widget.pageIndex,
         curve: Curves.easeInOut,
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 250),
       );
     }
 
     return Scaffold(
       body: PageView(
+        //* esto evitara que rebote
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         //index: widget.pageIndex,
         children: viewRoutes,
